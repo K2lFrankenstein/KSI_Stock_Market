@@ -6,6 +6,7 @@ password = 'Stfu@32057'
 cmd = "D:\psudo_desktop\KSI\sample\data.json"
 returned_value = subprocess.call(cmd, shell=True)  # returns the exit code in unix
 
+cmd= "git clone https://github.com/K2lFrankenstein/test.git"
 cmd = "git add ." 
 subprocess.call(cmd, shell=True)
 
