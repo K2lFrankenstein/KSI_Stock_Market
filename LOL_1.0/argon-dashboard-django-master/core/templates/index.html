@@ -45,7 +45,7 @@
         }
       }
     });
-    $.getJSON("https://canvasjs.com/data/docs/ltceur2018.json", function(data) {
+    data =r'D:\psudo_desktop\KSI\small.json',function(json) {
       var lowestCloseDate = data[0].date, lowestClosingPrice = data[0].close;
       for(var i = 0; i < data.length; i++) {
         if(data[i].close < lowestClosingPrice) {
