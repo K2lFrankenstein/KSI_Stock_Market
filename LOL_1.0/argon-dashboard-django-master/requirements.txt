@@ -10,3 +10,7 @@ python-decouple
 gunicorn
 whitenoise
 quandl
+pmdarima
+sklearn
+statsmodels
+matplotlib
