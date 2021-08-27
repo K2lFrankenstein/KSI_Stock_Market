@@ -17,10 +17,12 @@ import numpy as np
 
 from api import getdata
 from fill import getcode
-# company = input("Enter Company name : ")
-# code = getcode(company)
-data = getdata()
-smort = math.ceil(len(data)*0.1)
+company = input("Enter Company name : ")
+code = getcode(company)
+data = getdata(code)
+data = data.reset_index()
+print(data.head())
+smort = math.ceil(len(data)*0.05)
 
 from statsmodels.tsa.stattools import adfuller
 def test_stationarity(timeseries):
@@ -46,7 +48,7 @@ def test_stationarity(timeseries):
 test_stationarity(data['Close'])
 
 df_log = np.log(data['Close'])
-train_data, test_data = df_log[3:int(len(df_log)*0.9)], df_log[int(len(df_log)*0.9):]
+train_data, test_data = df_log[:int(len(df_log)*0.95)], df_log[int(len(df_log)*0.95):]
 plt.figure(figsize=(10,6))
 plt.grid(True)
 plt.xlabel('Dates')
@@ -60,7 +62,7 @@ plt.legend()
 
 model_autoARIMA = auto_arima(train_data, start_p=0, start_q=0,
 test='adf',       # use adftest to find optimal 'd'
-max_p=3, max_q=3, # maximum p and q
+max_p=5, max_q=5, # maximum p and q
 m=1,              # frequency of series
 d=None,           # let model determine 'd'
 seasonal=False,   # No Seasonality

@@ -1,7 +1,6 @@
 import quandl 
 import csv
 import pandas as pd
-from github import Github
 # quandl config
 
 
@@ -26,12 +25,13 @@ from github import Github
 
 # print(dict_from_csv)
 
-def getdata():
-    # quandl.ApiConfig.api_key = 'RATUYxBwY63sVF7F8PBQ'
-    # dateparse = lambda dates: pd.datetime.strptime(dates, '%Y-%m-%d')
-    # print("getting data PLz wait........")
-    # data = quandl.get(code,start_date='2015-01-01')
-    data = pd.read_csv("data.csv")
+def getdata(code):
+    quandl.ApiConfig.api_key = 'RATUYxBwY63sVF7F8PBQ'
+    dateparse = lambda dates: pd.datetime.strptime(dates, '%Y-%m-%d')
+    print("getting data PLz wait........")
+    data = quandl.get(code,start_date='2015-01-01')
+    # data = pd.read_csv("data.csv")
+    
     df = pd.DataFrame(data, columns = ['Open','High','Low','Close'])
     print(df.head())
     print("Data fetched successfully.......")
@@ -40,5 +40,5 @@ def getdata():
 if __name__ == '__main__' :
     print("Populating the data please wait")
     # code = input("enter  :")
-    getdata()
+    getdata(code)
     print(" not populating completed")   
