@@ -21,18 +21,17 @@ import quandl
 # data = quandl.get('BSE/BOM500325')
 data = pd.read_csv('data.csv')
 
-data = data.reset_index()
+graph_data = data.reset_index()
 
 
 
 # Line chart - Close
-fig = px.line(data, x="Date", y="Close", title="Closing price")
+fig = px.line(graph_data, x="Date", y="Close", title="Closing price")
 pof.plot(fig,filename='Linechart-Close')
 
-
 # Histogram - Clsoe
-fig = px.histogram(data, x="Date", y="Close")
-pof.plot(fig,filename='Histogram-Clsoe')
+fig = px.histogram(graph_data, x="Date", y="Close")
+pof.plot(fig,filename='Histogram-Close')
 
 # from statsmodels.tsa.stattools import adfuller
 # def test_stationarity(timeseries):
@@ -59,12 +58,12 @@ pof.plot(fig,filename='Histogram-Clsoe')
 
 
 # Claculating rolmean and rolstd
-rolmean = list(data['Close'].rolling(12).mean())
-rolstd = list(data['Close'].rolling(12).std())
+rolmean = list(graph_data['Close'].rolling(12).mean())
+rolstd = list(graph_data['Close'].rolling(12).std())
 # print(rolmean)
 # print(rolstd)
 
-dataf = data
+dataf = graph_data
 dataf['Rolmean'] = rolmean
 dataf['Rolstd'] = rolstd
 
@@ -93,11 +92,11 @@ trace2 = go.Scatter(
 
 df = [trace0, trace1, trace2]
 layout = go.Layout(title = "Rolling Mean and Standard Deviation")
-figure = go.Figure(data = df, layout = layout)
+figure = go.Figure(graph_data = df, layout = layout)
 pof.plot(figure,filename='RM-SD')
 
 
-df_close = data['Close']
+df_close = graph_data['Close']
 result = seasonal_decompose(df_close, model='multiplicative', freq = 30)
 fig = result.plot()  
 fig.set_size_inches(16, 9)
