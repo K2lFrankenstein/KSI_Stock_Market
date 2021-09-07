@@ -25,20 +25,20 @@ import pandas as pd
 
 # print(dict_from_csv)
 
-def getdata(code):
-    quandl.ApiConfig.api_key = 'RATUYxBwY63sVF7F8PBQ'
-    dateparse = lambda dates: pd.datetime.strptime(dates, '%Y-%m-%d')
+def getdata():
+    # quandl.ApiConfig.api_key = 'RATUYxBwY63sVF7F8PBQ'
+    # dateparse = lambda dates: pd.datetime.strptime(dates, '%Y-%m-%d')
     print("getting data PLz wait........")
-    data = quandl.get(code,start_date='2015-01-01')
-    # data = pd.read_csv("data.csv")
+    # data = quandl.get(code,start_date='2015-01-01')
+    data = pd.read_csv("data.csv")
     
-    df = pd.DataFrame(data, columns = ['Open','High','Low','Close'])
-    print(df.head())
+    # df = pd.DataFrame(data, columns = ['Date','Open','High','Low','Close'])
+    print(data.head())
     print("Data fetched successfully.......")
-    return df
+    return data
 
 if __name__ == '__main__' :
     print("Populating the data please wait")
     # code = input("enter  :")
-    getdata(code)
+    getdata()
     print(" not populating completed")   

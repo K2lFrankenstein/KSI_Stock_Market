@@ -6,6 +6,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
 plt.style.use('fivethirtyeight')
 import math
 import numpy as np
@@ -22,7 +23,6 @@ import quandl
 data = pd.read_csv('data.csv')
 
 graph_data = data.reset_index()
-
 
 
 # Line chart - Close

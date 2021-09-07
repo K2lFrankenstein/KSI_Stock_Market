@@ -27,8 +27,8 @@ import quandl
 
 def arima_fun():
 
-    code = 'BSE/BOM500002'
-    data = getdata(code)
+    # code = 'BSE/BOM500002'
+    data = getdata()
     smort = math.ceil(len(data)*0.05)
 
     def test_stationarity(timeseries):
@@ -67,7 +67,7 @@ def arima_fun():
     d =int(x[9])
     q =int(x[11])
     model_autoARIMA.plot_diagnostics(figsize=(15,8))
-    plt.savefig('graphs/Diagnostics.png')
+    plt.savefig('Graphs/Diagnostics.png')
     model = ARIMA(train_data, order=(p, d, q))
     fitted = model.fit(disp=-1)
     
@@ -84,21 +84,23 @@ def arima_fun():
     plt.xlabel('Time')
     plt.ylabel('Actual Stock Price')
     plt.legend(loc='upper left', fontsize=8)
-    plt.savefig('graphs/Prediction.png')   
+    plt.savefig('Graphs/Prediction.png')   
 
 def graphs_fun():
 
-    code = 'BSE/BOM500002'
-    data = getdata(code)
-    graph_data = data.reset_index()
+    # code = 'BSE/BOM500002'
+    data = getdata()
+    # graph_data = data.reset_index()
+    # print(graph_data)
+    graph_data = data
 
     # Line chart - Close
     fig = px.line(graph_data, x="Date", y="Close", title="Closing price")
-    pof.plot(fig,filename='graphs/Linechart-Close.html')
+    pof.plot(fig,filename='Graphs/graphs/Linechart-Close.html')
 
     # Histogram - Clsoe
     fig = px.histogram(graph_data, x="Date", y="Close")
-    pof.plot(fig,filename='graphs/Histogram-Close.html')
+    pof.plot(fig,filename='Graphs/graphs/Histogram-Close.html')
 
     # Claculating rolmean and rolstd
     rolmean = list(graph_data['Close'].rolling(12).mean())
@@ -110,37 +112,26 @@ def graphs_fun():
     dataf['Rolmean'] = rolmean
     dataf['Rolstd'] = rolstd
 
-    dataf = dataf.drop(['Open', 'High', 'Low', 'WAP','No. of Shares','No. of Trades',	'Total Turnover',	'Deliverable Quantity',	'% Deli. Qty to Traded Qty', 'Spread H-L', 'Spread C-O'],axis=1)
+    dataf = dataf.drop(['Open', 'High', 'Low', 'WAP','No. of Shares','No. of Trades','Total Turnover','Deliverable Quantity','% Deli. Qty to Traded Qty', 'Spread H-L', 'Spread C-O'],axis=1)
     # Rolling mean and Standard deviation 
-    trace0 = go.Scatter(
-        x = dataf.Date,
-        y = dataf.Close,
-        mode = 'lines',
-        name = 'Close')
+    trace0 = go.Scatter(x = dataf.Date, y = dataf.Close, mode = 'lines', name = 'Close')
 
-    trace1 = go.Scatter(
-        x = dataf.Date,
-        y = dataf.Rolmean,
-        mode = 'lines',
-        name = 'Rolmean')
+    trace1 = go.Scatter(x = dataf.Date, y = dataf.Rolmean, mode = 'lines', name = 'Rolmean')
 
-    trace2 = go.Scatter(
-        x = dataf.Date,
-        y = dataf.Rolstd,
-        mode = 'lines',
-        name = "Rolstd")
+    trace2 = go.Scatter(x = dataf.Date, y = dataf.Rolstd, mode = 'lines', name = 'Rolstd') 
 
     df = [trace0, trace1, trace2]
     layout = go.Layout(title = "Rolling Mean and Standard Deviation")
-    figure = go.Figure(graph_data = df, layout = layout)
-    pof.plot(figure,filename='graphs/RM-SD.html')
-
+    figure = go.Figure(data = df, layout = layout)
+    pof.plot(figure,filename='Graphs/graphs/RM-SD.html')
 
     df_close = graph_data['Close']
     result = seasonal_decompose(df_close, model='multiplicative', freq = 30)
-    fig = result.plot()  
-    fig.set_size_inches(16, 9)
-    pof.plot(fig,filename='graphs/seasonal_decompose.html')
+    fig = result.plot()
+    # fig.set_size_inches(16, 9)
+    # fig.show()
+    plt.savefig('Graphs/seasonal_decompose.png')   
+
 
 if __name__ == '__main__' :
     print("calling arima")
