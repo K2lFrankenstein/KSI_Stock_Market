@@ -1,7 +1,6 @@
 import os
 import warnings
 warnings.filterwarnings('ignore')
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 plt.style.use('fivethirtyeight')
@@ -14,10 +13,14 @@ from pmdarima.arima import auto_arima
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import math
 import numpy as np
+import plotly
+import plotly.express as px
+import plotly.graph_objects as go
+import plotly.offline as pof
 
 from api import getdata
 from fill import getcode
-company = input("Enter Company name : ")
+
 code = getcode(company)
 data = getdata(code)
 data = data.reset_index()

@@ -37,8 +37,10 @@ def search(request):
         company = products[0]['name']
         print("company",company)
         print("code", code)
+#  calling arima function arima(code)
+#  views second function  return render(xxxxxx, 'RM - .html
         return render(request, 'icons.html', {'company': company,
-                                            'code' : code})
+                                                'code' : code})
     else:
         print("insode else")
         return render(request, 'index.html', {})

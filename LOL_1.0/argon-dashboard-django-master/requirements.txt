@@ -14,3 +14,4 @@ pmdarima
 sklearn
 statsmodels
 matplotlib
+plotly
