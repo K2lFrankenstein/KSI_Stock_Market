@@ -13,6 +13,7 @@ from django.views.generic import View, TemplateView, ListView, DetailView
 from app.models import Products
 import pandas as pd
 from arima import arima_fun,graphs_fun
+import time
 
 @login_required(login_url="/login/")
 def index(request):
@@ -24,13 +25,13 @@ def index(request):
     return HttpResponse(html_template.render(context, request))
 
 def histo_graph(request):
-    return render(request, 'Graphs/graphs/Histogram-Close.html', {})
+    return render(request, 'Histo.html', {})
 
 def line_graph(request):
-    return render(request, 'Graphs/graphs/Linechart-Close.html', {})
+    return render(request, 'Graphs/Linechart-Close.html', {})
 
 def RMSD_graph(request):
-    return render(request, 'Graphs/graphs/RM-SD.html', {})
+    return render(request, 'Graphs/RM-SD.html', {})
 
 def search(request):
     print("In search fun")
@@ -48,8 +49,9 @@ def search(request):
         print("company",company)
         print("code", code)
 #  calling arima function arima(code)
-        arima_fun(code)
-        graphs_fun(code)
+        arima_fun()
+        graphs_fun()
+        time.sleep(50)
 #  views second function  return render(xxxxxx, 'RM - .html
         return render(request, 'icons.html', {'company': company,
                                                 'code' : code})
