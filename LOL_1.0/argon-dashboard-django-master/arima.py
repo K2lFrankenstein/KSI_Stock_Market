@@ -96,11 +96,11 @@ def graphs_fun():
 
     # Line chart - Close
     fig = px.line(graph_data, x="Date", y="Close", title="Closing price")
-    pof.plot(fig,filename='Graphs/graphs/Linechart-Close.html')
+    pof.plot(fig,filename='Graphs/Linechart-Close.html')
 
     # Histogram - Clsoe
     fig = px.histogram(graph_data, x="Date", y="Close")
-    pof.plot(fig,filename='Graphs/graphs/Histogram-Close.html')
+    pof.plot(fig,filename='core/templates/Histo.html')
 
     # Claculating rolmean and rolstd
     rolmean = list(graph_data['Close'].rolling(12).mean())
@@ -123,7 +123,7 @@ def graphs_fun():
     df = [trace0, trace1, trace2]
     layout = go.Layout(title = "Rolling Mean and Standard Deviation")
     figure = go.Figure(data = df, layout = layout)
-    pof.plot(figure,filename='Graphs/graphs/RM-SD.html')
+    pof.plot(figure,filename='Graphs/RM-SD.html')
 
     df_close = graph_data['Close']
     result = seasonal_decompose(df_close, model='multiplicative', freq = 30)
