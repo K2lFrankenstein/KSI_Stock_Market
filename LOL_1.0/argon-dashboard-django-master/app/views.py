@@ -12,7 +12,7 @@ from django.db.models import Q
 from django.views.generic import View, TemplateView, ListView, DetailView
 from app.models import Products
 import pandas as pd
-from Graphs.arima import arima_fun,graphs_fun
+from arima import arima_fun,graphs_fun
 
 @login_required(login_url="/login/")
 def index(request):
