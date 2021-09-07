@@ -7,15 +7,16 @@ from app.models import Products
 import pandas as pd
 
 
-def getcode(asd):
+def getcode(self):
 
 
     """
     GET request will render the products that are matched with the 'q' form parameter.
     will return PRODUCT list in descending order of the stock.
     """
-    print(asd)
-    q = asd     #request.GET.get('q')
+   
+    q = request.GET.get('q')
+    print(q)
     products = Products.objects.filter( Q(name__icontains=q) | Q(code__icontains=q)).values()
  
     

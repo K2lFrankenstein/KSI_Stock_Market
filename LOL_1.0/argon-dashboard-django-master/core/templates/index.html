@@ -45,25 +45,30 @@
         }
       }
     });
-    data =r'D:\psudo_desktop\KSI\small.json',function(json) {
-      var lowestCloseDate = data[0].date, lowestClosingPrice = data[0].close;
-      for(var i = 0; i < data.length; i++) {
-        if(data[i].close < lowestClosingPrice) {
-          lowestClosingPrice = data[i].close;
-          lowestCloseDate = data[i].date;
-        }
-      }
-      for(var i = 0; i < data.length; i++){
-        dataPoints1.push({x: new Date(data[i].date), y: [Number(data[i].open), Number(data[i].high), Number(data[i].low), Number(data[i].close)]});
-        dataPoints2.push({x: new Date(data[i].date), y: Number(data[i].close)});
-        if(data[i].date === lowestCloseDate){
-          dataPoints1[i].indexLabel = "Lowest Closing";
-          dataPoints1[i].indexLabelFontColor = "red";
-          dataPoints1[i].indexLabelOrientation = "vertical"
-        }
-      }
-      stockChart.render();
-    });
+ 
+    
+ 
+    // FOR THE GRAPH
+
+    // data =r'D:\psudo_desktop\KSI\small.json',function(json) {
+    //   var lowestCloseDate = data[0].date, lowestClosingPrice = data[0].close;
+    //   for(var i = 0; i < data.length; i++) {
+    //     if(data[i].close < lowestClosingPrice) {
+    //       lowestClosingPrice = data[i].close;
+    //       lowestCloseDate = data[i].date;
+    //     }
+    //   }
+    //   for(var i = 0; i < data.length; i++){
+    //     dataPoints1.push({x: new Date(data[i].date), y: [Number(data[i].open), Number(data[i].high), Number(data[i].low), Number(data[i].close)]});
+    //     dataPoints2.push({x: new Date(data[i].date), y: Number(data[i].close)});
+    //     if(data[i].date === lowestCloseDate){
+    //       dataPoints1[i].indexLabel = "Lowest Closing";
+    //       dataPoints1[i].indexLabelFontColor = "red";
+    //       dataPoints1[i].indexLabelOrientation = "vertical"
+    //     }
+    //   }
+    //   stockChart.render();
+    // }); Till here
   }
   </script>
   {% endblock stylesheets %}

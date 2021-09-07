@@ -5,13 +5,56 @@
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/">Dashboard</a>
         <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        <script> 
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+        console.log(document.getElementById("search_input"))
+        function myFunction(){
+                var q = document.getElementById("search_input").value;
+                console.log(q);
+                var URL= "{% url 'app:search' %}";
+                $.ajax({
+                    method : "POST",
+                    headers: {'X-CSRFToken':csrftoken},
+                    url: URL,
+                    data : {'q': q},
+                    success: function(data){
+                      console.log(q);
+                    }
+                });
+              }
+        </script>
+        
+
+        <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto" method="POST" >
           <div class="form-group mb-0">
             <div class="input-group input-group-alternative">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
               </div>
-              <input class="form-control" placeholder="Search" type="text">
+
+              <!-- To be continued  oninput="myFunction()" -->
+              <form method=POST action="{% url 'app:search' %}">
+                {% csrf_token %}
+                <input type="search" name="searched" class="form-control" id="search_input" placeholder="Search Here"> 
+                <button type="submit" class="btn-primary ">submit</button>
+              </form>
+             
             </div>
           </div>
         </form>

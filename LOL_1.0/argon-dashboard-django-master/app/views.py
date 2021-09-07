@@ -8,6 +8,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
+from django.db.models import Q
+from django.views.generic import View, TemplateView, ListView, DetailView
+from app.models import Products
+import pandas as pd
 
 @login_required(login_url="/login/")
 def index(request):
@@ -18,10 +22,34 @@ def index(request):
     html_template = loader.get_template( 'index.html' )
     return HttpResponse(html_template.render(context, request))
 
+def search(request):
+    print("In search fun")
+    if request.method == "POST":
+        searched = request.POST('searched')
+
+    # q = request.GET.get('q')
+        print(searched)
+        products = Products.objects.filter(Q(name__contains=searched))
+        # # x= str(products)
+        print(products[0]['code'])
+        code = products[0]['code']
+        company = products[0]['name']
+        print("company",company)
+        return render(request, 'icons.html', {'code':code})
+    else:
+        print("insode else")
+        return render(request, 'icons.html', {})
+
+
 @login_required(login_url="/login/")
 def pages(request):
     context = {}
     # All resource paths end in .html.
+
+    #  qset = getcode()
+    # print("qset", qset)
+    # return qset
+
     # Pick out the html file name from the url. And load that template.
     try:
         
