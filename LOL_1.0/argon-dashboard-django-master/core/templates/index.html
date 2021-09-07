@@ -99,6 +99,11 @@
                     <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     <span class="text-nowrap">Since last month</span>
                   </p>
+                  <form method=GET action="{% url 'search' %}">
+                    {% csrf_token %}
+                    <input type="search" name="searched" class="form-control" id="search_input" placeholder="Search Here"> 
+                    <button type="submit" class="btn-primary ">submit</button>
+                  </form>
                 </div>
               </div>
             </div>

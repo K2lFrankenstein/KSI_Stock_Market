@@ -24,21 +24,24 @@ def index(request):
 
 def search(request):
     print("In search fun")
-    if request.method == "POST":
-        searched = request.POST('searched')
+    if request.method == "GET":
+        print("inside IF")
+        searched = str(request.GET['searched'])
 
     # q = request.GET.get('q')
         print(searched)
-        products = Products.objects.filter(Q(name__contains=searched))
+       
+        products = Products.objects.filter( Q(name__icontains=searched) | Q(code__icontains=searched)).values()
         # # x= str(products)
-        print(products[0]['code'])
         code = products[0]['code']
         company = products[0]['name']
         print("company",company)
-        return render(request, 'icons.html', {'code':code})
+        print("code", code)
+        return render(request, 'icons.html', {'company': company,
+                                            'code' : code})
     else:
         print("insode else")
-        return render(request, 'icons.html', {})
+        return render(request, 'index.html', {})
 
 
 @login_required(login_url="/login/")
