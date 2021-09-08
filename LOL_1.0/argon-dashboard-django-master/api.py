@@ -23,7 +23,7 @@ import pandas as pd
 #     reader = csv.reader(inp)
 #     dict_from_csv = {rows[1]:rows[0] for rows in reader}
 
-# print(dict_from_csv)
+# print(dict_from_csv) 
 
 def getdata():
     # quandl.ApiConfig.api_key = 'RATUYxBwY63sVF7F8PBQ'

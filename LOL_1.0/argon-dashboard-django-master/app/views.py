@@ -24,23 +24,36 @@ def index(request):
     html_template = loader.get_template( 'index.html' )
     return HttpResponse(html_template.render(context, request))
 
-def globe_1(request):
+class war:
+    def setdata(company,code):
+        company = company
+        code = code
+    def get_data():
+        x= [company,code]  
+        return x
+G1 = war()
+
+def search(request):
+    print("In search fun")
     if request.method == "GET":
         print("inside IF")
         searched = str(request.GET['searched'])
-        print(searched)
         products = Products.objects.filter( Q(name__icontains=searched) | Q(code__icontains=searched)).values()
-        print("products",products)
-        code = products[0]['code']
-        company = products[0]['name']
+        code = str(products[0]['code'])
+        company = str(products[0]['name'])
         print("company",company)
         print("code", code)
-        xyz = [company, code]
-        print("xyz", xyz)
-        return xyz
     else:
-        pass
-        
+        print("shit happens")
+    G1.setdata(company,code)
+#  calling arima function arima(code)
+    # arima_fun()
+    # graphs_fun()
+#  views second function  return render(xxxxxx, 'RM - .html
+    return render(request, 'includes/sidenav.html', {'company': xyz[0],
+                                                'code' : xyz[1]})
+
+
 
 def histo_graph(request):
     xyz = globe_1(request)
@@ -53,26 +66,12 @@ def line_graph(request):
                                                 'code' : xyz[1]})
 
 def RMSD_graph(request):
-    xyz = globe_1(request)
-
-    return render(request, '3.html',{'company': xyz[0],
-                                          'code' : xyz[1]})
-
     
-
-def search(request):
-    print("In search fun")
-    
-    xyz = globe_1(request)
-    print("company",xyz[0])
-    print("code", xyz[1])
-#  calling arima function arima(code)
-    # arima_fun()
-    # graphs_fun()
-#  views second function  return render(xxxxxx, 'RM - .html
-    return render(request, 'layouts/base.html', {'company': xyz[0],
-                                                'code' : xyz[1]})
-
+    sigma = G1.get_data()
+    print("inside rsdm")
+    print(sigma[0])
+    return render(request, '3.html',{'company': sigma[0],
+                                          'code' : sigma[1]})       
 
 @login_required(login_url="/login/")
 def pages(request):

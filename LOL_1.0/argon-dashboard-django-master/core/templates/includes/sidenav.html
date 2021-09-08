@@ -88,6 +88,16 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
+            <a class="nav-link"  href="1.html">
+              <i class="ni ni-planet text-blue"> {{ company }}</i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  href="1.html">
+              <i class="ni ni-planet text-blue"> {{ code }}</i>
+            </a>
+          </li>
+          <li class="nav-item">
           <a class=" nav-link {% if 'index' in segment %} active {% endif %}" href="/"> <i class="ni ni-tv-2 text-primary"></i> Home Page
             </a>
           </li>
@@ -102,7 +112,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if '3' in segment %} active {% endif %}" href="/3.html">
+            <a class="nav-link" href="{% url 'app:RMSD' %}">
               <i class="ni ni-single-02 text-yellow"></i> Rolling Mean & Standard Deviation 
             </a>
           </li>
