@@ -51,7 +51,6 @@ def search(request):
 #  calling arima function arima(code)
         arima_fun()
         graphs_fun()
-        time.sleep(50)
 #  views second function  return render(xxxxxx, 'RM - .html
         return render(request, 'icons.html', {'company': company,
                                                 'code' : code})
