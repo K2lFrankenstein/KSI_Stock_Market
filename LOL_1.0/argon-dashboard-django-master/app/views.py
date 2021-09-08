@@ -24,14 +24,14 @@ def index(request):
     html_template = loader.get_template( 'index.html' )
     return HttpResponse(html_template.render(context, request))
 
-def histo_graph(request):
-    return render(request, 'Histo.html', {})
+# def histo_graph(request):
+#     return render(request, 'Histo.html', {})
 
-def line_graph(request):
-    return render(request, 'Graphs/Linechart-Close.html', {})
+# def line_graph(request):
+#     return render(request, 'Linechart-Close.html', {})
 
-def RMSD_graph(request):
-    return render(request, 'Graphs/RM-SD.html', {})
+# def RMSD_graph(request):
+#     return render(request, 'RM-SD.html', {})
 
 def search(request):
     print("In search fun")
