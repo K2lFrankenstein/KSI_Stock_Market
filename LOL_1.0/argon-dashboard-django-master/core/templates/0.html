@@ -8,26 +8,9 @@
 {% block content %}
 
 
-<div  class=" ">
-    <div onclick="fun()" class="d-flex text-center bg-blue"> on click
-    <div id="company"></div>
-    <div id="code"></div>
 
-    </div>
-</div>
-
+{% block content_1 %}
+ {% endblock content_1 %}
 {% endblock content %}
 
-{% block javascripts %}
-
-<script type="text/javascript"> 
-    function fun(){
-            var company = "{{ company }}";
-            var code = "{{ code }}";
-            console.log(company)
-            console.log(code)
-            document.getElementById("comapny").innerHTML = company;
-            document.getElementById("code").innerHTML = code;
-        }
- </script>
-{% endblock javascripts %}
+{% block javascripts %}{% endblock javascripts %}

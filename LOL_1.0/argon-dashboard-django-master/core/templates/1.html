@@ -5,22 +5,23 @@
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
-{% block content %}
 
+{% block content_1 %}
     <!-- Header -->
 
-    <div> {% include "Line.html" %}</div>
-   
+    
+    {% include "Line.html" %}
 
-   
 
-          <!-- <div class="card-body">
+          <div class="card-body">
                 <div class="col-lg-3 col-md-6">
                     <div>
+                        {{ company }}
+                        {{ code }}
                     </div>
                 </div>
-            </div> -->
-{% endblock content %}
+            </div>
+{% endblock content_1 %}
 
 <!-- Specific JS goes HERE --> 
 {% block javascripts %}{% endblock javascripts %}

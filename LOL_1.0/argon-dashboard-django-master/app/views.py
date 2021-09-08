@@ -24,40 +24,54 @@ def index(request):
     html_template = loader.get_template( 'index.html' )
     return HttpResponse(html_template.render(context, request))
 
-# def histo_graph(request):
-#     return render(request, 'Histo.html', {})
-
-# def line_graph(request):
-#     return render(request, 'Linechart-Close.html', {})
-
-# def RMSD_graph(request):
-        # compyname
-#     return render(request, 'RM-SD.html', {})
-
-def search(request):
-    print("In search fun")
+def globe_1(request):
     if request.method == "GET":
         print("inside IF")
         searched = str(request.GET['searched'])
-
-    # q = request.GET.get('q')
         print(searched)
-       
         products = Products.objects.filter( Q(name__icontains=searched) | Q(code__icontains=searched)).values()
-        # # x= str(products)
+        print("products",products)
         code = products[0]['code']
         company = products[0]['name']
         print("company",company)
         print("code", code)
-#  calling arima function arima(code)
-        arima_fun()
-        graphs_fun()
-#  views second function  return render(xxxxxx, 'RM - .html
-        return render(request, '0.html', {'company': company,
-                                                'code' : code})
+        xyz = [company, code]
+        print("xyz", xyz)
+        return xyz
     else:
-        print("insode else")
-        return render(request, 'index.html', {})
+        pass
+        
+
+def histo_graph(request):
+    xyz = globe_1(request)
+    return render(request, 'Histo.html', {'company': xyz[0],
+                                            'code' : xyz[1]})
+
+def line_graph(request):
+    xyz = globe_1(request)
+    return render(request, 'Linechart-Close.html', {'company': xyz[0],
+                                                'code' : xyz[1]})
+
+def RMSD_graph(request):
+    xyz = globe_1(request)
+
+    return render(request, 'RM-SD.html',{'company': xyz[0],
+                                          'code' : xyz[1]})
+
+    
+
+def search(request):
+    print("In search fun")
+    
+    xyz = globe_1(request)
+    print("company",xyz[0])
+    print("code", xyz[1])
+#  calling arima function arima(code)
+    # arima_fun()
+    # graphs_fun()
+#  views second function  return render(xxxxxx, 'RM - .html
+    return render(request, 'layouts/base.html', {'company': xyz[0],
+                                                'code' : xyz[1]})
 
 
 @login_required(login_url="/login/")

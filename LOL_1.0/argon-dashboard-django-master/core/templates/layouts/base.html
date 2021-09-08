@@ -39,9 +39,30 @@
     
 
     {% block content %}
+    <div class="card shadow">
+      <div class="card-header text-center bg-blue">
+      <h1 id="company" onclick="func()"> {{ company }} </h1> 
+      <h3 id="code">{{ code }}</h3>
+  
+      </div>
+  </div>
+  <div>
+    <h1 id="company_1"> </h1> 
+    <h3 id="code_1"> </h3>
+  </div>
+  <script>
+    function func(){
+      var x ="{{ company }}";
+      var y = "{{ code }}";
+      console.log("x",x ,"y" ,y);
+      document.getElementById("company_1").innerHTML = x;
+      document.getElementById("code_1").innerHTML = y;
 
+    }
+  </script>
+  {% block content_1 %}
+  {% endblock content_1 %}
     {% endblock content %}
-          
 
   </div>
 
