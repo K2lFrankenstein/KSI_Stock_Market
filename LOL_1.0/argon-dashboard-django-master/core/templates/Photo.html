@@ -1,0 +1,40 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Prediction {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content_1 %}
+
+                <div class="card shadow">
+                  <div class="card-header text-center bg-blue">
+                  <h1 id="company"> </h1> 
+                  <h3 id="code"> </h3>
+                  </div>
+                </div>
+            <script>
+              window.onload = function load(){
+                                    var company_name = sessionStorage.getItem("company");
+                                    var company_code = sessionStorage.getItem("code");
+                                    console.log(company_name, company_code);
+
+                                    document.getElementById("company").innerHTML = company_name;
+                                    document.getElementById("code").innerHTML = company_code;
+
+                    }
+            </script>
+          <div class="card-body">
+            <div class="col-lg-3 col-md-6">
+                <img src="{% static 'assets/media/Prediction.png' %}" alt="">
+            </div>
+          </div>
+          
+
+         
+          
+{% endblock content_1 %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

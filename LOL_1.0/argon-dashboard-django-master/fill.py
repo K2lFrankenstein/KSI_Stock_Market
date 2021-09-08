@@ -19,21 +19,12 @@ def getcode(asd):
     products = Products.objects.filter( Q(name__icontains=q) | Q(code__icontains=q)).values()
  
     
-    # # x= str(products)
     print(products[0]['code'])
     code = products[0]['code']
     company = products[0]['name']
     return code
 
 
-    # company = products.strip("<QuerySet[< >]>")
-
-    # # company = x.strip("Products:")
-    # print("comany = ",company)
-    # fuck = company.split("*")
-    # print(fuck)
-    # # pc= Products.objects.get()
-    # # print(pc)
 
 if __name__ == '__main__' :
     print("Populating the data please wait")
