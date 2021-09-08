@@ -31,6 +31,7 @@ def index(request):
 #     return render(request, 'Linechart-Close.html', {})
 
 # def RMSD_graph(request):
+        # compyname
 #     return render(request, 'RM-SD.html', {})
 
 def search(request):

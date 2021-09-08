@@ -7,13 +7,27 @@
 
 {% block content %}
 
-<div class="card shadow">
-    <div class="card-header text-center bg-blue">
-    <h1> {{ company }} </h1> 
-    <h3>{{ code }}</h3>
+
+<div  class=" ">
+    <div onclick="fun()" class="d-flex text-center bg-blue"> on click
+    <div id="company"></div>
+    <div id="code"></div>
 
     </div>
 </div>
+
 {% endblock content %}
 
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+
+<script type="text/javascript"> 
+    function fun(){
+            var company = "{{ company }}";
+            var code = "{{ code }}";
+            console.log(company)
+            console.log(code)
+            document.getElementById("comapny").innerHTML = company;
+            document.getElementById("code").innerHTML = code;
+        }
+ </script>
+{% endblock javascripts %}
