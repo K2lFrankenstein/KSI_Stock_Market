@@ -42,36 +42,36 @@ def globe_1(request):
         pass
         
 
-def histo_graph(request):
-    xyz = globe_1(request)
-    return render(request, '2.html', {'company': xyz[0],
-                                            'code' : xyz[1]})
+def sd(request):
+    return render(request, 'Seadec.html', {})
 
-def line_graph(request):
-    xyz = globe_1(request)
-    return render(request, '1.html', {'company': xyz[0],
-                                                'code' : xyz[1]})
+def diagnostics(request):
+    return render(request, 'Dia.html', {})
 
-def RMSD_graph(request):
-    xyz = globe_1(request)
+def Prediction(request):
+    return render(request, 'Photo.html',{})
 
-    return render(request, '3.html',{'company': xyz[0],
-                                          'code' : xyz[1]})
+def graphs(request):
+    return render(request, 'graphs.html',{})
 
     
 
 def search(request):
     print("In search fun")
     
-    xyz = globe_1(request)
-    print("company",xyz[0])
-    print("code", xyz[1])
-#  calling arima function arima(code)
-    # arima_fun()
-    # graphs_fun()
-#  views second function  return render(xxxxxx, 'RM - .html
-    return render(request, 'layouts/base.html', {'company': xyz[0],
-                                                'code' : xyz[1]})
+    if request.method == "GET":
+        print("inside IF")
+        searched = str(request.GET['searched'])
+        print(searched)
+        products = Products.objects.filter( Q(name__icontains=searched) | Q(code__icontains=searched)).values()
+        code = products[0]['code']
+        company = products[0]['name']
+    #  calling arima function arima(code)
+        # arima_fun(code)
+        # graphs_fun(code)
+    #  views second function  return render(xxxxxx, 'RM - .html
+        return render(request, 'something.html', {'company': company,
+                                                'code' : code})
 
 
 @login_required(login_url="/login/")
@@ -79,9 +79,7 @@ def pages(request):
     context = {}
     # All resource paths end in .html.
 
-    #  qset = getcode()
-    # print("qset", qset)
-    # return qset
+
 
     # Pick out the html file name from the url. And load that template.
     try:

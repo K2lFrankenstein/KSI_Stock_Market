@@ -2,6 +2,7 @@ import os
 import warnings
 
 from requests.models import codes
+from scipy.sparse import data
 warnings.filterwarnings('ignore')
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -25,11 +26,11 @@ import plotly.graph_objects as go
 import plotly.offline as pof
 import quandl
 
-def arima_fun():
+def arima_fun(asd):
 
-    # code = 'BSE/BOM500002'
-    data = getdata()
-    smort = math.ceil(len(data)*0.05)
+    df = getdata(asd)
+    smort = math.ceil(len(df)*0.1)
+    data = pd.DataFrame(df, columns = ['Open','High','Low','Close'])
 
     def test_stationarity(timeseries):
         #Determing rolling statistics
@@ -48,7 +49,7 @@ def arima_fun():
     test_stationarity(data['Close'])
 
     df_log = np.log(data['Close'])
-    train_data, test_data = df_log[:int(len(df_log)*0.95)], df_log[int(len(df_log)*0.95):]
+    train_data, test_data = df_log[:int(len(df_log)*0.9)], df_log[int(len(df_log)*0.9):]
 
     model_autoARIMA = auto_arima(train_data, start_p=0, start_q=0,
     test='adf',       # use adftest to find optimal 'd'
@@ -86,32 +87,31 @@ def arima_fun():
     plt.legend(loc='upper left', fontsize=8)
     plt.savefig('core/static/assets/media/Prediction.png')   
 
-def graphs_fun():
+def graphs_fun(asd):
 
-    # code = 'BSE/BOM500002'
-    data = getdata()
-    # graph_data = data.reset_index()
-    # print(graph_data)
-    graph_data = data
+    data = getdata(asd)
+    graph_data = data.reset_index()
+
 
     # Line chart - Close
-    fig = px.line(graph_data, x="Date", y="Close", title="Closing price")
+    fig = px.line(graph_data, x="Date", y="Close", title="Linechart - Closing Price")
     fig.write_html("core/templates/Line.html")
 
-    # Histogram - Clsoe
-    fig = px.histogram(graph_data, x="Date", y="Close")
+    # Histogram - Close
+    fig = px.histogram(graph_data, x="Date", y="Close", title = "Histogram - Closing Price")
     fig.write_html("core/templates/Histo.html")
+
     # Claculating rolmean and rolstd
     rolmean = list(graph_data['Close'].rolling(12).mean())
     rolstd = list(graph_data['Close'].rolling(12).std())
-    # print(rolmean)
-    # print(rolstd)
+
 
     dataf = graph_data
     dataf['Rolmean'] = rolmean
     dataf['Rolstd'] = rolstd
 
     dataf = dataf.drop(['Open', 'High', 'Low', 'WAP','No. of Shares','No. of Trades','Total Turnover','Deliverable Quantity','% Deli. Qty to Traded Qty', 'Spread H-L', 'Spread C-O'],axis=1)
+
     # Rolling mean and Standard deviation 
     trace0 = go.Scatter(x = dataf.Date, y = dataf.Close, mode = 'lines', name = 'Close')
 
@@ -120,21 +120,20 @@ def graphs_fun():
     trace2 = go.Scatter(x = dataf.Date, y = dataf.Rolstd, mode = 'lines', name = 'Rolstd') 
 
     df = [trace0, trace1, trace2]
-    layout = go.Layout(title = "Rolling Mean and Standard Deviation")
+    layout = go.Layout(title = "Rolling Mean & Standard Deviation - Closing Price")
     figure = go.Figure(data = df, layout = layout)
     figure.write_html("core/templates/RMSD.html")
 
     df_close = graph_data['Close']
     result = seasonal_decompose(df_close, model='multiplicative', freq = 30)
     fig = result.plot()
-    # fig.set_size_inches(16, 9)
-    # fig.show()
+    fig.set_size_inches(16,9)
     plt.savefig('core/static/assets/media/seasonal_decompose.png')   
 
 
 if __name__ == '__main__' :
     print("calling arima")
-    arima_fun()
+    arima_fun(asd)
     print(" calling graph")
-    graphs_fun()
+    graphs_fun(asd)
     print("successfully called evrything!!!")

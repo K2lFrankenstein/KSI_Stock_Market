@@ -14,9 +14,11 @@ urlpatterns = [
     # The home page
     path('', views.index, name='home'),
     path('search/', views.search, name='search'),
-    path('histo/', views.histo_graph, name='histo'),
-    path('line/', views.line_graph, name='line'),
-    path('RMSD/', views.RMSD_graph, name='RMSD'),
+    path('dia/', views.diagnostics, name='dia'),
+    path('sd/', views.sd, name='sd'),
+    path('RMSD/', views.Prediction, name='RMSD'),
+    path('graphs/', views.graphs, name='graphs'),
+
 
 
     # Matches any html file
