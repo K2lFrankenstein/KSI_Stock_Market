@@ -44,18 +44,18 @@ def globe_1(request):
 
 def histo_graph(request):
     xyz = globe_1(request)
-    return render(request, 'Histo.html', {'company': xyz[0],
+    return render(request, '2.html', {'company': xyz[0],
                                             'code' : xyz[1]})
 
 def line_graph(request):
     xyz = globe_1(request)
-    return render(request, 'Linechart-Close.html', {'company': xyz[0],
+    return render(request, '1.html', {'company': xyz[0],
                                                 'code' : xyz[1]})
 
 def RMSD_graph(request):
     xyz = globe_1(request)
 
-    return render(request, 'RM-SD.html',{'company': xyz[0],
+    return render(request, '3.html',{'company': xyz[0],
                                           'code' : xyz[1]})
 
     
