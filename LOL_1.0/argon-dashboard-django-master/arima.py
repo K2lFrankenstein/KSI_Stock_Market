@@ -67,7 +67,7 @@ def arima_fun():
     d =int(x[9])
     q =int(x[11])
     model_autoARIMA.plot_diagnostics(figsize=(15,8))
-    plt.savefig('core/templates/media/Diagnostics.png')
+    plt.savefig('core/static/assets/media/Diagnostics.png')
     model = ARIMA(train_data, order=(p, d, q))
     fitted = model.fit(disp=-1)
     
@@ -84,7 +84,7 @@ def arima_fun():
     plt.xlabel('Time')
     plt.ylabel('Actual Stock Price')
     plt.legend(loc='upper left', fontsize=8)
-    plt.savefig('core/templates/media/Prediction.png')   
+    plt.savefig('core/static/assets/media/Prediction.png')   
 
 def graphs_fun():
 
@@ -129,7 +129,7 @@ def graphs_fun():
     fig = result.plot()
     # fig.set_size_inches(16, 9)
     # fig.show()
-    plt.savefig('core/templates/media/seasonal_decompose.png')   
+    plt.savefig('core/static/assets/media/seasonal_decompose.png')   
 
 
 if __name__ == '__main__' :

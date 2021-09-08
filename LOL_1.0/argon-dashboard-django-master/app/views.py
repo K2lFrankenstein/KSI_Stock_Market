@@ -52,7 +52,7 @@ def search(request):
         arima_fun()
         graphs_fun()
 #  views second function  return render(xxxxxx, 'RM - .html
-        return render(request, 'icons.html', {'company': company,
+        return render(request, '0.html', {'company': company,
                                                 'code' : code})
     else:
         print("insode else")
