@@ -67,7 +67,7 @@ def arima_fun():
     d =int(x[9])
     q =int(x[11])
     model_autoARIMA.plot_diagnostics(figsize=(15,8))
-    plt.savefig('Graphs/Diagnostics.png')
+    plt.savefig('core/templates/media/Diagnostics.png')
     model = ARIMA(train_data, order=(p, d, q))
     fitted = model.fit(disp=-1)
     
@@ -84,7 +84,7 @@ def arima_fun():
     plt.xlabel('Time')
     plt.ylabel('Actual Stock Price')
     plt.legend(loc='upper left', fontsize=8)
-    plt.savefig('Graphs/Prediction.png')   
+    plt.savefig('core/templates/media/Prediction.png')   
 
 def graphs_fun():
 
@@ -96,12 +96,11 @@ def graphs_fun():
 
     # Line chart - Close
     fig = px.line(graph_data, x="Date", y="Close", title="Closing price")
-    fig.write_html("core/templates/Line.html")
-    # pof.plot(fig,filename='Graphs/Linechart-Close.html')
+    pof.plot(fig,filename='core/templates/Linechart-Close.html')
 
     # Histogram - Clsoe
     fig = px.histogram(graph_data, x="Date", y="Close")
-    fig.write_html("core/templates/Histo.html")
+    pof.plot(fig,filename='core/templates/Histo.html')
 
     # Claculating rolmean and rolstd
     rolmean = list(graph_data['Close'].rolling(12).mean())
@@ -124,15 +123,14 @@ def graphs_fun():
     df = [trace0, trace1, trace2]
     layout = go.Layout(title = "Rolling Mean and Standard Deviation")
     figure = go.Figure(data = df, layout = layout)
-    fig.write_html("core/templates/RMSD.html")
-    
+    pof.plot(figure,filename='core/templates/RM-SD.html')
 
     df_close = graph_data['Close']
     result = seasonal_decompose(df_close, model='multiplicative', freq = 30)
     fig = result.plot()
     # fig.set_size_inches(16, 9)
     # fig.show()
-    plt.savefig('Graphs/seasonal_decompose.png')   
+    plt.savefig('core/templates/media/seasonal_decompose.png')   
 
 
 if __name__ == '__main__' :
