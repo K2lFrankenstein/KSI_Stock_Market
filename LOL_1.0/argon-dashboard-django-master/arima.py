@@ -52,21 +52,23 @@ def arima_fun(asd):
     train_data, test_data = df_log[:int(len(df_log)*0.9)], df_log[int(len(df_log)*0.9):]
 
     model_autoARIMA = auto_arima(train_data, start_p=0, start_q=0,
-    test='adf',       # use adftest to find optimal 'd'
-    max_p=5, max_q=5, # maximum p and q
-    m=1,              # frequency of series
-    d=None,           # let model determine 'd'
-    seasonal=False,   # No Seasonality
-    start_P=0, 
-    D=0, 
-    trace=True,
-    error_action='ignore',  
-    suppress_warnings=True)
+                                            test='adf',       # use adftest to find optimal 'd'
+                                            max_p=5, max_q=5, # maximum p and q
+                                            m=1,              # frequency of series
+                                            d=None,           # let model determine 'd'
+                                            seasonal=False,   # No Seasonality
+                                            start_P=0, 
+                                            D=0, 
+                                            trace=True,
+                                            error_action='ignore',  
+                                            suppress_warnings=True)
+    print(model_autoARIMA.summary())
 
-    x=str(model_autoARIMA)
+
+    x = str(model_autoARIMA)
     p = int(x[7]) 
-    d =int(x[9])
-    q =int(x[11])
+    d = int(x[9])
+    q = int(x[11])
     model_autoARIMA.plot_diagnostics(figsize=(15,8))
     plt.savefig('core/static/assets/media/Diagnostics.png')
     model = ARIMA(train_data, order=(p, d, q))

@@ -67,8 +67,8 @@ def search(request):
         code = products[0]['code']
         company = products[0]['name']
     #  calling arima function arima(code)
-        # arima_fun(code)
-        # graphs_fun(code)
+        arima_fun(code)
+        graphs_fun(code)
     #  views second function  return render(xxxxxx, 'RM - .html
         return render(request, 'something.html', {'company': company,
                                                 'code' : code})
