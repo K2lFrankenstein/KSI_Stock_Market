@@ -58,7 +58,7 @@ def graphs(request):
 
 def search(request):
     print("In search fun")
-    
+    # xyz = glabal1(request)
     if request.method == "GET":
         print("inside IF")
         searched = str(request.GET['searched'])
