@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def getdata(code):
-    quandl.ApiConfig.api_key = 'RATUYxBwY63sVF7F8PBQ'
+    quandl.ApiConfig.api_key = "YOUR API KEY"
     dateparse = lambda dates: pd.datetime.strptime(dates, '%Y-%m-%d')
     print("getting data PLz wait........")
     data = quandl.get(code,start_date='2015-01-01')
